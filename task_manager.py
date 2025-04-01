@@ -1,4 +1,5 @@
 import json
+from utils import *
 from task import Task
 
 class TaskManager:
@@ -20,7 +21,7 @@ class TaskManager:
         with open(self.filename, 'w') as f:
             json.dump([task.__dict__ for task in self.tasks], f)
 
-    def add_task(self, title, description, status="pending"):
+    def add_task(self, title, description, status="выполняеться"):
         task_id = len(self.tasks) + 1
         new_task = Task(task_id, title, description, status)
         self.tasks.append(new_task)
@@ -41,9 +42,9 @@ class TaskManager:
 
     def view_tasks(self):
         for task in self.tasks:
-            print(f"ID: {task.task_id}, Title: {task.title}, Description: {task.description}, Status: {task.status}")
+            print(f"ID: {task.task_id}, Название: {task.title}, Описание: {task.description}, Статус: {task.status}")
 
     def search_tasks(self, keyword):
         found_tasks = [task for task in self.tasks if keyword.lower() in task.title.lower() or keyword.lower() in task.description.lower()]
         for task in found_tasks:
-            print(f"ID: {task.task_id}, Title: {task.title}, Description: {task.description}, Status: {task.status}")
+            print(f"ID: {task.task_id}, Название: {task.title}, Описание: {task.description}, Статус: {task.status}")
