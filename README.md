@@ -115,11 +115,11 @@ SECRET_KEY=
 
 DEBUG=
 
-NAME=Diplom
-HOST=
-USER=
-PASSWORD=
-PORT=
+POSTGRES_DB=
+POSTGRES_HOST=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_PORT=
 
 ````
 
@@ -139,6 +139,8 @@ python manage.py runserver
 ```bash
 docker-compose up --build
 ````
+## Заполнить таблицу данными 
+python manage.py fill_tracker
 
 #### После запуска приложение будет доступно по адресу: http://localhost:8000
 
@@ -160,3 +162,4 @@ python manage.py test
 ## Лицензия
 
 Этот проект лицензирован на условиях MIT License. Смотрите файл [LICENSE](LICENSE) для подробностей.
+

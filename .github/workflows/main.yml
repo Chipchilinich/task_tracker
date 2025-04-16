@@ -14,4 +14,4 @@ jobs:
           git fetch
           git switch main
           git merge origin/main
-          docker compose up --build --force-recreate -d
+          docker compose up --build --force-recreate -dwsl --update
