@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             model_name="tracker",
             name="employees",
             field=models.ManyToManyField(
-                blank=True, null=True, to="employee.employee", verbose_name="Сотрудники"
+                blank=True, to="employee.employee", verbose_name="Сотрудники"
             ),
         ),
         migrations.AlterField(

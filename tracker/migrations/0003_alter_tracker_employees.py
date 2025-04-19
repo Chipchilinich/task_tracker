@@ -16,7 +16,6 @@ class Migration(migrations.Migration):
             name="employees",
             field=models.ManyToManyField(
                 blank=True,
-                null=True,
                 related_name="trackers",
                 to="employee.employee",
                 verbose_name="Сотрудники",

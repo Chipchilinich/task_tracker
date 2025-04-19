@@ -27,7 +27,7 @@ class Tracker(models.Model):
         verbose_name="Статус выполнения"
     )
     employees = models.ManyToManyField(
-        Employee, blank=True, null=True, verbose_name="Сотрудники", related_name="trackers"
+        Employee, blank=True, verbose_name="Сотрудники", related_name="trackers"
     )
 
     class Meta:
