@@ -1,1 +1,1 @@
-[]
+[{"model": "employee.employee", "pk": 1, "fields": {"fio": "dkflbvbh pbymrjdcrbq", "employee_position": "hf,"}}, {"model": "tracker.tracker", "pk": 1, "fields": {"title": "диплом", "related_tracker": null, "time": "быстро", "status": "active", "employees": [1]}}]
