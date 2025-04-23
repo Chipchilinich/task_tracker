@@ -1,8 +1,9 @@
 # Byte-compiled / optimized / DLL files
+venv_task_tracker/
 __pycache__/
 *.py[cod]
 *$py.class
-
+.idea/
 # C extensions
 *.so
 
@@ -37,7 +38,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-../my_project/htmlcov/
+htmlcov/
 .tox/
 .nox/
 .coverage
@@ -160,8 +161,6 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
-misc.xml
-workspace.xml
-celerybeat-schedule.bak
-celerybeat-schedule.dat
-celerybeat-schedule.dir
+.sqlite/
+test.html
+test.py
