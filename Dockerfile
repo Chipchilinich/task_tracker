@@ -13,6 +13,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 
 # Ставим зависимости внутрь окружения Poetry
+RUN poetry config virtualenvs.create false
 RUN poetry install --no-root --no-interaction --no-ansi
 
 # Копируем весь остальной код

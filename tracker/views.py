@@ -21,31 +21,41 @@ class TrackerViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         """Вывод информации списка согласно шаблона"""
 
-        # Получаем отфильтрованный список
-        queryset = self.filter_queryset(self.get_queryset())
-
-        # Сериализация
-        serializer = self.get_serializer(queryset, many=True)
-
         # Список заданных параметров на фильтрацию в поисковой строке
         filter_params = request.query_params
 
         # Проверяем наличие фильтра в запросе
         if filter_params.get("important_trackers") == "true":
 
-            # Формируем ответ, если есть отфильтрованные задачи
+            # Список задач, у которых не назначен Сотрудник
+            queryset = Tracker.objects.filter(employees__isnull=True)
+
+            # Сериализация
+            serializer = self.get_serializer(queryset, many=True)
+
             formatted_response = []
 
+            employees = EmployeeSerializer(Employee.objects.all(), many=True).data  # Все Сотрудники
+
+            # Мин кол-во задач Сотрудников
+            min_count_trackers = len(min(employees, key=lambda x: len(x["trackers"]))["trackers"])
+
+            # Сотрудники с мин. кол-вом задач
+            least_busy_employee = [employee for employee in employees if
+                                   len(employee["trackers"]) == min_count_trackers]
             for item in serializer.data:
+                related_tracker = item["related_tracker"]
+                if related_tracker:
+                    # Сотрудник, выполняющий связанную задачу
+                    related_employee = Employee.objects.get(pk=related_tracker)
+                    count_task_related_employee = related_employee.trackers.count()
 
-                # Получаем ID сотрудников
-                employee_ids = item['employees']
-
-                # Фильтруем сотрудник по ID
-                employee_info = Employee.objects.filter(id__in=employee_ids)
-
-                # Достаем ФИО каждого необходимого сотрудника
-                employee_names = [employee.fio for employee in employee_info]
+                    if count_task_related_employee <= min_count_trackers + 2:
+                        employee_names = [related_employee.fio]
+                    else:
+                        employee_names = [employee["fio"] for employee in least_busy_employee]
+                else:
+                    employee_names = [employee["fio"] for employee in least_busy_employee]
 
                 # Создаем необходимый формат ответа
                 formatted_response.append({
@@ -57,4 +67,5 @@ class TrackerViewset(viewsets.ModelViewSet):
 
             return Response(formatted_response)
 
+        serializer = self.get_serializer(self.queryset, many=True)
         return Response(serializer.data)
